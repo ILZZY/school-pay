@@ -1,0 +1,13 @@
+body {
+  padding: 50px;
+  font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
+}
+
+a {
+  color: #00B7FF;
+}
+
+/*自定义margin上边距为5*/
+.margin-top-5 {
+  margin-top: 5px!important;
+}

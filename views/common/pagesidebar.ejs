@@ -1,0 +1,33 @@
+<link rel="stylesheet" href="/stylesheets/commom/pagesidebar.css">
+<div class="page-sidebar-wrapper">
+    <!-- BEGIN SIDEBAR -->
+    <div class="page-sidebar navbar-collapse collapse">
+        <!-- BEGIN SIDEBAR MENU -->
+        <ul class="page-sidebar-menu  page-header-fixed " data-keep-expanded="false" data-auto-scroll="true"
+            data-slide-speed="200" style="padding-top: 20px">
+            <li class="heading">
+                <h3 class="uppercase">菜单栏test</h3>
+            </li>
+            <% firstMenus.forEach(function (firstMenu) { %>
+            <li class="nav-item start">
+                <a href="javascript:;" class="nav-link nav-toggle">
+                    <i class="icon-diamond"></i>
+                    <span class="title"><%= firstMenu.name %></span>
+                    <span class="arrow"></span>
+                </a>
+                <ul class="sub-menu">
+                    <% firstMenu.secondMenus.forEach(function (secondMenu) { %>
+                    <li class="nav-item" data-href="<%- secondMenu.menuURL%>">
+                        <a href="javascript:;" class="nav-link">
+                            <span class="title secondMenus-margin-left"><%= secondMenu.name %></span>
+                        </a>
+                    </li>
+                    <% }) %>
+                </ul>
+            </li>
+            <% }) %>
+        </ul>
+        <!-- END SIDEBAR MENU -->
+    </div>
+    <!-- END SIDEBAR -->
+</div>

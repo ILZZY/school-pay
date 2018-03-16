@@ -1,0 +1,57 @@
+[
+    {
+        "id": 1000,
+        "name": "系统管理",
+        "secondMenus": [
+            {
+                "id": 1100,
+                "name": "用户管理",
+                "menuURL": "path=systemmanage/usermanage"
+            },
+            {
+                "id": 1200,
+                "name": "角色管理",
+                "menuURL": ""
+            }
+        ]
+    },
+    {
+        "id": 2000,
+        "name": "订单管理",
+        "secondMenus": [
+            {
+                "id": 2100,
+                "name": "查看订单"
+            }
+        ]
+    },
+    {
+        "id": 3000,
+        "name": "帮助",
+        "secondMenus": [
+            {
+                "id": 3100,
+                "name": "系统说明"
+            },
+            {
+                "id": 32000,
+                "name": "联系我们"
+            },
+            {
+                "id": 33000,
+                "name": "捐赠"
+            }
+        ]
+    },
+    {
+        "id": 4000,
+        "name": "模板页面",
+        "secondMenus": [
+            {
+                "id": 4100,
+                "name": "DataTables",
+                "menuURL": "path=demo/template"
+            }
+        ]
+    }
+]

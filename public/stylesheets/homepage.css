@@ -1,0 +1,17 @@
+/*
+ Created on 3/9/2018  
+ Author: zhangliang
+ Description: homepage.css
+*/
+
+/*自定义标题样式*/
+.page-logo .h3-center{
+    color: #bfbfbf;
+    margin-top: 10px;
+}
+
+/*自定义用户下拉样式*/
+.page-header.navbar .top-menu .navbar-nav > li.dropdown-user > .dropdown-menu {
+    width: 108px;
+    min-width: 108px;
+}
