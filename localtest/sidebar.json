@@ -21,7 +21,8 @@
         "secondMenus": [
             {
                 "id": 2100,
-                "name": "查看订单"
+                "name": "查看订单",
+                "menuURL": "path=ordermanage/ordermanage"
             }
         ]
     },

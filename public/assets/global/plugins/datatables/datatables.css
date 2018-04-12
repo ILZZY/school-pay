@@ -276,8 +276,8 @@ div.DTFC_Blocker {
 /* 修改datatables的头部颜色样式，还有固定列的头部颜色样式 */
 .dataTables_scroll thead,
 .DTFC_ScrollWrapper thead > tr{
-    background:#f5f5f5;
-    color: #526069;
+    background:#de9b9b;
+    color: #0e467b;
 }
 /* 修改固定列与原内容不高度不一样 */
 .DTFC_LeftBodyWrapper,

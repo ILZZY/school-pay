@@ -8,7 +8,8 @@ var fs = require('fs');
 router.get('/', function(req, res, next) {
     console.log("渲染主页");
     var firstMenus = [];
-    if (global.LOCALTESTDATA) { //本地数据模式，在本地模拟服务器数据
+    var userName_ = req.session.userName;
+    if (!global.LOCALTESTDATA) { //本地数据模式，在本地模拟服务器数据
         console.log("本地数据模式 获取边侧栏");
         firstMenus = JSON.parse(fs.readFileSync(global.LOCALTESTPATH + "/sidebar.json"));
     } else { //服务器数据模式
@@ -22,7 +23,8 @@ router.get('/', function(req, res, next) {
             firstMenus = data;
         });
     }
-    res.render('homepage', { "firstMenus": firstMenus });
+    debugger
+    res.render('homepage', { "firstMenus": firstMenus, "userName":userName_ });
 });
 
 module.exports = router;

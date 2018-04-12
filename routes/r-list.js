@@ -12,7 +12,21 @@ var r_logout = require('../routes/r-logout');
 var r_demo = require('../routes/demo/r-demo');
 var r_systemmanage = require("../routes/systemmanage/r-systemmanage");
 
+var proxy = require('express-http-proxy');
+
 var route_lists = function (app) {
+    /**
+     * 默认代理转发
+     */
+    app.use('/api/', proxy(global.BACKSERVICE, {
+        proxyReqPathResolver: function (req) {
+            console.log("后台请求路径:" + global.BACKSERVICE + req._parsedUrl.path);
+            return global.BACKSERVICE + req._parsedUrl.path;
+        },
+        filter: function(req, res) {
+            return true;
+        }
+    }));
 
     //绑定路由处理
     app.use('/', r_index);

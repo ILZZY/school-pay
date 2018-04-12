@@ -1,8 +1,10 @@
 // 定义的全局变量
 // 定义测试数据的根目录
 global.LOCALTESTPATH = "./localtest";
-global.LOCALTESTDATA = true;
+global.LOCALTESTDATA = false;
 
+global.LOCALHOST = "http://localhost:3000";
+global.BACKSERVICE = "http://localhost:8080/school-pay-java";
 
 var express = require('express');
 var path = require('path');
@@ -39,7 +41,7 @@ app.use(session({
     saveUninitialized: false, // 是否自动保存未初始化的会话，建议false
     resave: false, // 是否每次都重新保存会话，建议false
     cookie: {
-        maxAge: 80 * 1000 // 有效期，单位是毫秒
+        maxAge: 10 * 60 * 60 * 1000 // 有效期，单位是毫秒
     }
 }));
 
@@ -48,19 +50,19 @@ app.use(session({
 app.use(function (req, res, next) {
     console.log("已进入登录判断中间件：url为-->" + req.url + "\tIS_LOGIN-->" + req.session.IS_LOGIN);
     //1.1未登录-->重定向到登陆页面
-    if (req.url != '/login') {
+    if (req.url.substr(0,6) != '/login') {
         if (req.session.IS_LOGIN === undefined || req.session.IS_LOGIN === null) {
-            console.log('这是非等登陆页面请求且还未登录，重定向到登录页面')
+            console.log('这是非登陆注册页面请求且还未登录，重定向到登录页面')
             res.redirect('/login');//如果没登录就重定向（跳转）至登录页面。
 
         } else {
-            console.log('这是非等登陆页面请求但已经登录了，继续路由')
+            console.log('这是非登陆注册页面请求但已经登录了，继续路由')
             next();
         }
         return;
     }
     //1.2否则继续路由
-    console.log('这是等登陆页面请求，继续路由')
+    console.log('这是登陆注册页面请求，继续路由')
     next();
 });
 

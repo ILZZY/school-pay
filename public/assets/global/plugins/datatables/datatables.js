@@ -18490,7 +18490,7 @@ $.extend( $.fn.dataTable.defaults, {
 	"lengthMenu": [10,20,50,500],//定义每页显示数据数量,[1,5]["显示1页"，"显示5页"] 未二维数组时，后面对应前面的具体描述
 	"info" : true,// 显示多少等信息（如：从 1 到 5 条记录 总记录数为 10 条首页上页12下页末页）
 	"autoWidth":true,/*让Datatables自动计算宽度*/
-	"scrollY": "440",/*设置超过高度就显示垂直滚动条*/
+	"scrollY": "412",/*设置超过高度就显示垂直滚动条*/
 	/*"sScrollX": "210%",*/
     //scrollX: true,// //设置X轴超过多少就出现滚动条/
 	"scrollCollapse": false,//当显示更少的记录时，是否允许表格减少高度
