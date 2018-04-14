@@ -54,5 +54,16 @@
                 "menuURL": "path=demo/template"
             }
         ]
+    },
+    {
+        "id": 5000,
+        "name": "学籍相关页面",
+        "secondMenus": [
+            {
+                "id": 5100,
+                "name": "学籍绑定",
+                "menuURL": "path=studentstatus/ssbind"
+            }
+        ]
     }
 ]

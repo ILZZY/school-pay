@@ -32,7 +32,7 @@ router.post('/', function (req, res) {
                 req.session.IS_LOGIN = true;
                 console.log('已经设置IS_LOGIN为:'+req.session.IS_LOGIN);
                 req.session.userName = tmpUserName;
-                debugger
+                //debugger
                 res.redirect("/homepage");
             }else {
                 console.log('后台验证失败');
@@ -55,5 +55,12 @@ router.post('/register',function (req, res) {
         res.send(data);
     });
 });
+
+router.get('/xueji',function (req, res) {
+    var data_ = {
+        "token": req.session.XUEJI_TOKEN
+    }
+    res.send(data_);
+})
 
 module.exports = router;

@@ -28,6 +28,20 @@ var route_lists = function (app) {
         }
     }));
 
+    /**
+     * 学籍查询代理转发
+     */
+    app.use('/api_xueji/', proxy(global.XUEJIURL, {
+        proxyReqPathResolver: function (req) {
+            console.log("学籍请求路径:" + global.XUEJIURL + req._parsedUrl.path);
+            debugger
+            return global.XUEJIURL + req._parsedUrl.path;
+        },
+        filter: function(req, res) {
+            return true;
+        }
+    }));
+
     //绑定路由处理
     app.use('/', r_index);
     app.use('/login', r_login);

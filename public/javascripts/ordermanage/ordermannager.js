@@ -9,7 +9,7 @@ var OrderManagerMVC = {
         DATATABLE: '',
         DATATABLE_IDs: [],
         URLs: {
-            "getdts": "/api/user/_page",
+            "getdts": "/api/order/_page",
             "addOrderUrl": "/api/user/_save",
             "baseOrderUrl": "/api/user/"
         }
@@ -23,10 +23,32 @@ var OrderManagerMVC = {
     View: {
         /*事件绑定*/
         bindEvent: function () {
+            /*$("#but-OrderAdd").on('click',function () {
+                $('#form_order_add_edit')[0].reset();
+                $("input[name='orderName']").attr('readOnly',false);
+                OrderManagerMVC.View.openLayer("新增用户", 'add', $('#div_add_order'));
+            });*/
             $("#but-OrderAdd").on('click',function () {
-                $('#form_user_add_edit')[0].reset();
-                $("input[name='userName']").attr('readOnly',false);
-                OrderManagerMVC.View.openLayer("新增用户", 'add', $('#div_add_user'));
+                $.ajax({
+                    type: "GET",
+                    url: '/api_xueji/',
+                    async: false,
+                    success: function (data) {
+                        debugger
+                        if(data.code_ == 0){
+                            layer.msg('修改成功！', {time: 2000}, function () {
+                                layer.close(layerIndex);
+                                OrderManagerMVC.Common.DATATABLE.ajax.reload(null, false); // 刷新表格数据，分页信息不会重置
+                            });
+                        }else{
+                            layer.msg('修改失败！' + data.msg_, {time: 3000});
+                        }
+                    },
+                    error: function (data) {
+                        debugger
+                        layer.msg('修改失败！' + data.msg_, {time: 3000});
+                    }
+                });
             });
             $("#but-OrderEdit").on('click',function () {
                 if(OrderManagerMVC.Common.DATATABLE_IDs.length != 1){
@@ -40,9 +62,9 @@ var OrderManagerMVC = {
                         async:false,
                         success: function (data) {
                             if(data.code_ == 0){
-                                OrderManagerMVC.View.openLayer("编辑用户", 'edit', $('#div_add_user'));
-                                $('#form_user_add_edit').setForm(data.data);
-                                $("input[name='userName']").attr('readOnly',true);
+                                OrderManagerMVC.View.openLayer("编辑用户", 'edit', $('#div_add_order'));
+                                $('#form_order_add_edit').setForm(data.data);
+                                $("input[name='orderName']").attr('readOnly',true);
                             }else{
                                 layer.msg('获取该数据失败！'+data.msg_,{time:2000});
                             }
@@ -63,9 +85,9 @@ var OrderManagerMVC = {
                     });
                 }
             });
-            $("#user-dts").on('click', 'input:checkbox.selectBox', function () {
+            $("#order-dts").on('click', 'input:checkbox.selectBox', function () {
                 OrderManagerMVC.Common.DATATABLE_IDs = [];
-                var checkboxes = $('#user-dts input:checkbox:checked');
+                var checkboxes = $('#order-dts input:checkbox:checked');
                 $.each(checkboxes, function () {
                     OrderManagerMVC.Common.DATATABLE_IDs.push($(this).attr("data-id"));
                 })
@@ -75,7 +97,7 @@ var OrderManagerMVC = {
         /*视图渲染*/
         initOrderDataTable: function () {
             OrderManagerMVC.Common.tableId = '';
-            OrderManagerMVC.Common.DATATABLE = $("#user-dts").DataTable({
+            OrderManagerMVC.Common.DATATABLE = $("#order-dts").DataTable({
                 "ajax": {
                     "url": OrderManagerMVC.Common.URLs.getdts, // ajax source
                     contentType: 'application/json;charset=UTF-8',
@@ -89,7 +111,7 @@ var OrderManagerMVC = {
                 },
                 "columns": [
                     {
-                        "data": "userId",
+                        "data": "orderId",
                         'title': '#',
                         "width": "20px",
                         'class': 'text-center',
@@ -97,21 +119,11 @@ var OrderManagerMVC = {
                             return "<input type='checkbox' name='arrSel' class='selectBox' data-id='" + data + "'>"
                         }
                     }, {
-                        "data": "userName", 'title': '名称', 'class': 'text-center'
+                        "data": "orderGenerateTime", 'title': '订单时间', 'class': 'text-center'
                     }, {
-                        "data": "userPassword", 'title': '密码', 'class': 'text-center'
+                        "data": "orderStatus", 'title': '订单状态', 'class': 'text-center'
                     }, {
-                        "data": "userFullName", 'title': '全名', 'class': 'text-center'
-                    }, {
-                        "data": "userAge", 'title': '年龄', 'class': 'text-center'
-                    }, {
-                        "data": "userGender", 'title': '性别', 'class': 'text-center', render: function (data) {
-                            return data ? '女' : '男';
-                        }
-                    }, {
-                        "data": "userEmail", 'title': '邮箱', 'class': 'text-center'
-                    }, {
-                        "data": "userAddress", 'title': '地址', 'class': 'text-center'
+                        "data": "orderId", 'title': '订单id', 'class': 'text-center'
                     }]
             });
         },
@@ -142,7 +154,7 @@ var OrderManagerMVC = {
     /*动作相关内容*/
     Action: {
         add: function (layerIndex) {
-            var data_ = $("#form_user_add_edit").serializeJSON({checkboxUncheckedValue: "0"});
+            var data_ = $("#form_order_add_edit").serializeJSON({checkboxUncheckedValue: "0"});
             $.ajax({
                 type: "POST",
                 url: OrderManagerMVC.Common.URLs.addOrderUrl,
@@ -166,7 +178,7 @@ var OrderManagerMVC = {
             });
         },
         edit: function (layerIndex) {
-            var data_ = $("#form_user_add_edit").serializeJSON({checkboxUncheckedValue: "0"});
+            var data_ = $("#form_order_add_edit").serializeJSON({checkboxUncheckedValue: "0"});
             $.ajax({
                 type: "PUT",
                 url: OrderManagerMVC.Common.URLs.baseOrderUrl+'/'+OrderManagerMVC.Common.DATATABLE_IDs[0],

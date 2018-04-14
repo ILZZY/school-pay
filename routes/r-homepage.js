@@ -23,7 +23,7 @@ router.get('/', function(req, res, next) {
             firstMenus = data;
         });
     }
-    debugger
+    //debugger
     res.render('homepage', { "firstMenus": firstMenus, "userName":userName_ });
 });
 

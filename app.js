@@ -5,7 +5,7 @@ global.LOCALTESTDATA = false;
 
 global.LOCALHOST = "http://localhost:3000";
 global.BACKSERVICE = "http://localhost:8080/school-pay-java";
-
+global.XUEJIURL = "https://way.jd.com/APIX";
 var express = require('express');
 var path = require('path');
 var favicon = require('serve-favicon');
@@ -56,13 +56,18 @@ app.use(function (req, res, next) {
             res.redirect('/login');//如果没登录就重定向（跳转）至登录页面。
 
         } else {
-            console.log('这是非登陆注册页面请求但已经登录了，继续路由')
+            console.log('这是非登陆注册页面请求但已经登录了，继续路由');
             next();
         }
         return;
     }
     //1.2否则继续路由
     console.log('这是登陆注册页面请求，继续路由')
+    //先从路径中拿参数
+    if(req.query.token){
+        //debugger
+        req.session.XUEJI_TOKEN = req.query.token;
+    }
     next();
 });
 
