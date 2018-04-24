@@ -100,6 +100,8 @@ var UserManagerMVC = {
                         "data": "userName", 'title': '名称', 'class': 'text-center'
                     }, {
                         "data": "userPassword", 'title': '密码', 'class': 'text-center'
+                    },{
+                        "data": "userRoleId", 'title': '角色', 'class': 'text-center'
                     }, {
                         "data": "userFullName", 'title': '全名', 'class': 'text-center'
                     }, {

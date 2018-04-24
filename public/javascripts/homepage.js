@@ -9,6 +9,15 @@ var homepageMVC = {
     Init: function () {
         homepageMVC.View.resetIfreamSize();
         homepageMVC.View.bindEvent();
+        //从Cookie中获取菜单并显示相应页面
+        if(Cookies.get('second-menu-id')){
+            var $tmp = $(".sub-menu [second-menu-id='"+Cookies.get('second-menu-id')+"']");
+            if($tmp){
+                $tmp.trigger('click');
+            }
+        }else{
+            $(".sub-menu [second-menu-id='1100']").trigger('click');
+        }
     },
     View: {
         setSidebar: function () {
@@ -36,6 +45,10 @@ var homepageMVC = {
 
                 /*设置导航标签指示栏*/
                 $("ul.page-breadcrumb li:eq(1) span").text($(this).find("span.title").text());
+                //debugger
+
+                Cookies.set("second-menu-id",$(this).attr("second-menu-id"));
+                console.log(Cookies.get());
 
                 /*设置iframe地址*/
                 $("#iframe-id").attr('src',"GETAPAGE?"+tmp);

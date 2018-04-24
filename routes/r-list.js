@@ -11,6 +11,7 @@ var r_logout = require('../routes/r-logout');
 
 var r_demo = require('../routes/demo/r-demo');
 var r_systemmanage = require("../routes/systemmanage/r-systemmanage");
+var r_pay = require("../routes/pay/r-pay");
 
 var proxy = require('express-http-proxy');
 
@@ -50,5 +51,6 @@ var route_lists = function (app) {
 
     app.use('/demo',r_demo);
     app.use("/systemanage", r_systemmanage);
+    app.use("/pay", r_pay);
 }
 module.exports = route_lists;

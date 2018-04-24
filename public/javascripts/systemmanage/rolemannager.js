@@ -3,52 +3,46 @@
  Author: zhangliang
  Description:     
 */
-var OrderManagerMVC = {
+var RoleManagerMVC = {
     /*常量*/
     Common: {
         DATATABLE: '',
         DATATABLE_IDs: [],
-        USER_NAME: '',
         URLs: {
-            "getdts": "/api/order/_pageWithUserName",
-            "addOrderUrl": "/api/order/_save",
-            "baseOrderUrl": "/api/order/"
+            "getdts": "/api/role/_page",
+            "addRoleUrl": "/api/role/_save",
+            "baseRoleUrl": "/api/role/"
         }
     },
     /*初始化*/
     Init: function () {
-        OrderManagerMVC.View.bindEvent();
-        OrderManagerMVC.View.initOrderDataTable();
+        RoleManagerMVC.View.bindEvent();
+        RoleManagerMVC.View.initRoleDataTable();
     },
     /*视图相关类容*/
     View: {
         /*事件绑定*/
         bindEvent: function () {
-            /*$("#but-OrderAdd").on('click',function () {
-                $('#form_order_add_edit')[0].reset();
-                $("input[name='orderName']").attr('readOnly',false);
-                OrderManagerMVC.View.openLayer("新增用户", 'add', $('#div_add_order'));
-            });*/
-            $("#but-OrderAdd").on('click',function () {
-                $('#form_order_add_edit')[0].reset();
-                $("input[name='userName']").attr('readOnly',false);
-                OrderManagerMVC.View.openLayer("新增订单", 'add', $('#div_add_order'));
+            $("#but-RoleAdd").on('click',function () {
+                $('#form_role_add_edit')[0].reset();
+                $("input[name='roleName']").attr('readOnly',false);
+                RoleManagerMVC.View.openLayer("新增角色", 'add', $('#div_add_role'));
             });
-            $("#but-OrderEdit").on('click',function () {
-                if(OrderManagerMVC.Common.DATATABLE_IDs.length != 1){
+            $("#but-RoleEdit").on('click',function () {
+                if(RoleManagerMVC.Common.DATATABLE_IDs.length != 1){
                     layer.msg('请选择且只选择一条数据！', {time: 2000});
                     return false;
                 }else{
                     $.ajax({
                         type: 'GET',
-                        url: OrderManagerMVC.Common.URLs.baseOrderUrl+'/'+OrderManagerMVC.Common.DATATABLE_IDs[0],
+                        url: RoleManagerMVC.Common.URLs.baseRoleUrl+'/'+RoleManagerMVC.Common.DATATABLE_IDs[0],
                         contentType: 'application/json;charset=UTF-8',
                         async:false,
                         success: function (data) {
                             if(data.code_ == 0){
-                                OrderManagerMVC.View.openLayer("编辑订单", 'edit', $('#div_add_order'));
-                                $('#form_order_add_edit').setForm(data.data);
-                                $("input[name='orderName']").attr('readOnly',true);
+                                RoleManagerMVC.View.openLayer("编辑角色", 'edit', $('#div_add_role'));
+                                $('#form_role_add_edit').setForm(data.data);
+                                $("input[name='roleName']").attr('readOnly',true);
                             }else{
                                 layer.msg('获取该数据失败！'+data.msg_,{time:2000});
                             }
@@ -59,36 +53,31 @@ var OrderManagerMVC = {
                     });
                 }
             });
-            $("#but-OrderDel").on('click',function () {
-                if(OrderManagerMVC.Common.DATATABLE_IDs.length < 1){
+            $("#but-RoleDel").on('click',function () {
+                if(RoleManagerMVC.Common.DATATABLE_IDs.length < 1){
                     layer.msg('请至少选择一条数据！', {time: 2000});
                     return false;
                 }else{
                     layer.confirm('确认删除所选数据吗？', {icon: 3, title:'提示'}, function(index){
-                        OrderManagerMVC.Action.delete(index);
+                        RoleManagerMVC.Action.delete(index);
                     });
                 }
             });
-            $("#order-dts").on('click', 'input:checkbox.selectBox', function () {
-                OrderManagerMVC.Common.DATATABLE_IDs = [];
-                var checkboxes = $('#order-dts input:checkbox:checked');
+            $("#role-dts").on('click', 'input:checkbox.selectBox', function () {
+                RoleManagerMVC.Common.DATATABLE_IDs = [];
+                var checkboxes = $('#role-dts input:checkbox:checked');
                 $.each(checkboxes, function () {
-                    OrderManagerMVC.Common.DATATABLE_IDs.push($(this).attr("data-id"));
+                    RoleManagerMVC.Common.DATATABLE_IDs.push($(this).attr("data-id"));
                 })
-                console.log("选中的行有:" + OrderManagerMVC.Common.DATATABLE_IDs + "\t选中的行数：" + OrderManagerMVC.Common.DATATABLE_IDs.length);
+                console.log("选中的行有:" + RoleManagerMVC.Common.DATATABLE_IDs + "\t选中的行数：" + RoleManagerMVC.Common.DATATABLE_IDs.length);
             })
         },
         /*视图渲染*/
-        initOrderDataTable: function () {
-            OrderManagerMVC.Common.tableId = '';
-            if(!OrderManagerMVC.Common.USER_NAME){
-                var username_ = $('.username', window.parent.document).text();
-                username_ = username_.trim();
-                OrderManagerMVC.Common.USER_NAME = username_;
-            }
-            OrderManagerMVC.Common.DATATABLE = $("#order-dts").DataTable({
+        initRoleDataTable: function () {
+            RoleManagerMVC.Common.tableId = '';
+            RoleManagerMVC.Common.DATATABLE = $("#role-dts").DataTable({
                 "ajax": {
-                    "url": OrderManagerMVC.Common.URLs.getdts+'/'+OrderManagerMVC.Common.USER_NAME, // ajax source
+                    "url": RoleManagerMVC.Common.URLs.getdts, // ajax source
                     contentType: 'application/json;charset=UTF-8',
                     type: "POST",
                     data: function (d) { //自己添加参数
@@ -100,7 +89,7 @@ var OrderManagerMVC = {
                 },
                 "columns": [
                     {
-                        "data": "orderId",
+                        "data": "roleId",
                         'title': '#',
                         "width": "20px",
                         'class': 'text-center',
@@ -108,28 +97,11 @@ var OrderManagerMVC = {
                             return "<input type='checkbox' name='arrSel' class='selectBox' data-id='" + data + "'>"
                         }
                     }, {
-                        "data": "orderOutTradeNo", 'title': '商户订单号', 'class': 'text-center'
+                        "data": "roleName", 'title': '名称', 'class': 'text-center'
                     }, {
-                        "data": "oderSubject", 'title': '订单主题', 'class': 'text-center'
+                        "data": "roleDesc", 'title': '描述', 'class': 'text-center'
                     }, {
-                        "data": "orderAmount", 'title': '订单金额', 'class': 'text-center'
-                    }, {
-                        "data": "orderUserName", 'title': '下单用户', 'class': 'text-center'
-                    }, {
-                        "data": "orderGenerateTime", 'title': '订单生成时间', 'class': 'text-center',render: function (data) {
-                            return new Date(data).toUTCString();
-                        }
-                    }, {
-                        "data": "orderStatus", 'title': '订单状态', 'class': 'text-center', render: function (data) {
-                            var result = "UNKNOWN";
-                            if(0 === data){
-                                result = '未支付';
-                            }
-                            else if(1 === data){
-                                result = '已支付';
-                            }
-                            return result;
-                        }
+                        "data": "roleId", 'title': '角色ID', 'class': 'text-center'
                     }]
             });
         },
@@ -146,9 +118,9 @@ var OrderManagerMVC = {
                 content: $content,
                 yes: function (index, layero) {
                     if(action == "add"){
-                        OrderManagerMVC.Action.add(index);
+                        RoleManagerMVC.Action.add(index);
                     }else if(action == "edit"){
-                        OrderManagerMVC.Action.edit(index);
+                        RoleManagerMVC.Action.edit(index);
                     }else{}
                 },
                 btn2: function (index, layero) {
@@ -160,10 +132,10 @@ var OrderManagerMVC = {
     /*动作相关内容*/
     Action: {
         add: function (layerIndex) {
-            var data_ = $("#form_order_add_edit").serializeJSON({checkboxUncheckedValue: "0"});
+            var data_ = $("#form_role_add_edit").serializeJSON({checkboxUncheckedValue: "0"});
             $.ajax({
                 type: "POST",
-                url: OrderManagerMVC.Common.URLs.addOrderUrl,
+                url: RoleManagerMVC.Common.URLs.addRoleUrl,
                 contentType: "application/json;charset=UTF-8",
                 async: false,
                 data: JSON.stringify(data_),
@@ -171,8 +143,8 @@ var OrderManagerMVC = {
                     if(data.code_ == 0){
                         layer.msg('添加成功！', {time: 2000}, function () {
                             layer.close(layerIndex);
-                            OrderManagerMVC.Common.DATATABLE.ajax.reload(null, false); // 刷新表格数据，分页信息不会重置
-                            OrderManagerMVC.Common.DATATABLE_IDs = [];
+                            RoleManagerMVC.Common.DATATABLE.ajax.reload(null, false); // 刷新表格数据，分页信息不会重置
+                            RoleManagerMVC.Common.DATATABLE_IDs = [];
                         });
                     }else{
                         layer.msg('添加失败！' + data.msg_, {time: 3000});
@@ -184,10 +156,10 @@ var OrderManagerMVC = {
             });
         },
         edit: function (layerIndex) {
-            var data_ = $("#form_order_add_edit").serializeJSON({checkboxUncheckedValue: "0"});
+            var data_ = $("#form_role_add_edit").serializeJSON({checkboxUncheckedValue: "0"});
             $.ajax({
                 type: "PUT",
-                url: OrderManagerMVC.Common.URLs.baseOrderUrl+'/'+OrderManagerMVC.Common.DATATABLE_IDs[0],
+                url: RoleManagerMVC.Common.URLs.baseRoleUrl+'/'+RoleManagerMVC.Common.DATATABLE_IDs[0],
                 contentType: "application/json;charset=UTF-8",
                 async: false,
                 data: JSON.stringify(data_),
@@ -195,7 +167,7 @@ var OrderManagerMVC = {
                     if(data.code_ == 0){
                         layer.msg('修改成功！', {time: 2000}, function () {
                             layer.close(layerIndex);
-                            OrderManagerMVC.Common.DATATABLE.ajax.reload(null, false); // 刷新表格数据，分页信息不会重置
+                            RoleManagerMVC.Common.DATATABLE.ajax.reload(null, false); // 刷新表格数据，分页信息不会重置
                         });
                     }else{
                         layer.msg('修改失败！' + data.msg_, {time: 3000});
@@ -207,16 +179,18 @@ var OrderManagerMVC = {
             });
         },
         delete: function (layerIndex) {
+            layer.msg('模拟删除', {time:2000});
+            layer.close(layerIndex);
             $.ajax({
                 type: "DELETE",
-                url: OrderManagerMVC.Common.URLs.baseOrderUrl+'/'+OrderManagerMVC.Common.DATATABLE_IDs[0],
+                url: RoleManagerMVC.Common.URLs.baseRoleUrl+'/'+RoleManagerMVC.Common.DATATABLE_IDs[0],
                 contentType: "application/json;charset=UTF-8",
                 async: false,
                 success: function (data) {
                     if(data.code_ == 0){
                         layer.msg('删除成功！', {time: 2000}, function () {
                             layer.close(layerIndex);
-                            OrderManagerMVC.Common.DATATABLE.ajax.reload(null, false); // 刷新表格数据，分页信息不会重置
+                            RoleManagerMVC.Common.DATATABLE.ajax.reload(null, false); // 刷新表格数据，分页信息不会重置
                         });
                     }else{
                         layer.msg('删除失败！' + data.msg_, {time: 3000});
@@ -233,5 +207,5 @@ var OrderManagerMVC = {
 
 //函数入口
 $(function () {
-    OrderManagerMVC.Init();
+    RoleManagerMVC.Init();
 })

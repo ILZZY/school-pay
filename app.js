@@ -3,8 +3,8 @@
 global.LOCALTESTPATH = "./localtest";
 global.LOCALTESTDATA = false;
 
-global.LOCALHOST = "http://localhost:3000";
-global.BACKSERVICE = "http://localhost:8080/school-pay-java";
+global.LOCALHOST = "http://127.0.0.1:3000";
+global.BACKSERVICE = "http://127.0.0.1:8080/school-pay-java";
 global.XUEJIURL = "https://way.jd.com/APIX";
 var express = require('express');
 var path = require('path');

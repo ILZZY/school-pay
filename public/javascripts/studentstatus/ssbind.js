@@ -7,8 +7,8 @@ var SSBindMVC = {
     /*常量*/
     Common: {
         URLs:{
-            callback_url:'http://120.11.123.23:8000/callbackurl',
-            success_url:'http://110.185.233.240:3001/login/xueji',
+            callback_url:'http://localhost:8000/callbackurl',
+            success_url:'http://localhost:3001/login/xueji',
             failed_url:'http://localhost:3001/login/xueji_fail',
             ssAuth_url:''
         },

@@ -33,6 +33,7 @@ router.post('/', function (req, res) {
                 console.log('已经设置IS_LOGIN为:'+req.session.IS_LOGIN);
                 req.session.userName = tmpUserName;
                 //debugger
+                req.session.userResources = data.data;
                 res.redirect("/homepage");
             }else {
                 console.log('后台验证失败');
@@ -57,6 +58,13 @@ router.post('/register',function (req, res) {
 });
 
 router.get('/xueji',function (req, res) {
+    var data_ = {
+        "token": req.session.XUEJI_TOKEN
+    }
+    res.send(data_);
+})
+
+router.get('/alioauth',function (req, res) {
     var data_ = {
         "token": req.session.XUEJI_TOKEN
     }

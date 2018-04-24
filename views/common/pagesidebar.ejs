@@ -9,17 +9,17 @@
                 <h3 class="uppercase">菜单栏</h3>
             </li>
             <% firstMenus.forEach(function (firstMenu) { %>
-            <li class="nav-item start">
+            <li class="nav-item start" first-menu-id="<%= firstMenu.resourceId%>">
                 <a href="javascript:;" class="nav-link nav-toggle">
                     <i class="icon-diamond"></i>
-                    <span class="title"><%= firstMenu.name %></span>
+                    <span class="title"><%= firstMenu.resourceName %></span>
                     <span class="arrow"></span>
                 </a>
                 <ul class="sub-menu">
                     <% firstMenu.secondMenus.forEach(function (secondMenu) { %>
-                    <li class="nav-item" data-href="<%- secondMenu.menuURL%>">
+                    <li class="nav-item" data-href="<%- secondMenu.resourcePath%>" second-menu-id="<%= secondMenu.resourceId%>">
                         <a href="javascript:;" class="nav-link">
-                            <span class="title secondMenus-margin-left"><%= secondMenu.name %></span>
+                            <span class="title secondMenus-margin-left"><%= secondMenu.resourceName %></span>
                         </a>
                     </li>
                     <% }) %>

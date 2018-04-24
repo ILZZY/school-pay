@@ -32,7 +32,12 @@ pre {
   width: 100%
 }
 
-/*自定义portlet颜色*/
+/*自定义portlet颜色1*/
 .my-portlet-color1{
   background-color: #b9b1bf
+}
+
+/*自定义portlet颜色2*/
+.my-portlet-color2{
+  background-color: #f6f6f7
 }

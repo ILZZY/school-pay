@@ -1,69 +1,126 @@
 [
     {
         "id": 1000,
-        "name": "系统管理",
+        "resourceName": "系统管理",
         "secondMenus": [
             {
-                "id": 1100,
-                "name": "用户管理",
-                "menuURL": "path=systemmanage/usermanage"
+                "resourceId": 1100,
+                "resourceName": "用户管理",
+                "resourcePath": "path=systemmanage/usermanage"
             },
             {
-                "id": 1200,
-                "name": "角色管理",
-                "menuURL": ""
+                "resourceId": 1200,
+                "resourceName": "角色管理",
+                "resourcePath": "path=systemmanage/rolemanage"
             }
         ]
     },
     {
-        "id": 2000,
-        "name": "订单管理",
+        "resourceId": 2000,
+        "resourceName": "订单管理",
         "secondMenus": [
             {
-                "id": 2100,
-                "name": "查看订单",
-                "menuURL": "path=ordermanage/ordermanage"
+                "resourceId": 2100,
+                "resourceName": "查看订单",
+                "resourcePath": "path=ordermanage/ordermanage"
             }
         ]
     },
     {
-        "id": 3000,
-        "name": "帮助",
+        "resourceId": 3000,
+        "resourceName": "帮助",
         "secondMenus": [
             {
-                "id": 3100,
-                "name": "系统说明"
+                "resourceId": 3100,
+                "resourceName": "系统说明",
+                "resourcePath": "path=help/systeminfo"
             },
             {
-                "id": 32000,
-                "name": "联系我们"
+                "resourceId": 32000,
+                "resourceName": "联系我们",
+                "resourcePath": "path=help/contect"
             },
             {
-                "id": 33000,
-                "name": "捐赠"
+                "resourceId": 33000,
+                "resourceName": "捐赠",
+                "resourcePath": "path=help/donate"
             }
         ]
     },
     {
-        "id": 4000,
-        "name": "模板页面",
+        "resourceId": 4000,
+        "resourceName": "模板页面",
         "secondMenus": [
             {
-                "id": 4100,
-                "name": "DataTables",
-                "menuURL": "path=demo/template"
+                "resourceId": 4100,
+                "resourceName": "DataTables",
+                "resourcePath": "path=demo/template"
             }
         ]
     },
     {
-        "id": 5000,
-        "name": "学籍相关页面",
+        "resourceId": 5000,
+        "resourceName": "第三方服务",
         "secondMenus": [
             {
-                "id": 5100,
-                "name": "学籍绑定",
-                "menuURL": "path=studentstatus/ssbind"
+                "resourceId": 5100,
+                "resourceName": "学籍绑定",
+                "resourcePath": "path=studentstatus/ssbind"
+            },
+            {
+                "resourceId": 5200,
+                "resourceName": "支付宝绑定",
+                "resourcePath": "path=pay/alioauth"
+            }
+        ]
+    },
+    {
+        "resourceId": 6000,
+        "resourceName": "支付充值",
+        "secondMenus": [
+            {
+                "resourceId": 6100,
+                "resourceName": "阿里支付",
+                "resourcePath": "path=pay/alipay"
+            }
+        ]
+    },
+    {
+        "resourceId": 7000,
+        "resourceName": "校园消费项目",
+        "secondMenus": [
+            {
+                "resourceId": 7100,
+                "resourceName": "项目查看",
+                "resourcePath": "path=demo/template"
+            },
+            {
+                "resourceId": 7200,
+                "resourceName": "缴费记录查询",
+                "resourcePath": "path=demo/template"
+            }
+        ]
+    },
+    {
+        "resourceId": 8000,
+        "resourceName": "校园缴费项目",
+        "secondMenus": [
+            {
+                "resourceId": 8100,
+                "resourceName": "项目查看",
+                "resourcePath": "path=demo/template"
+            },
+            {
+                "resourceId": 8200,
+                "resourceName": "我的充值记录",
+                "resourcePath": "path=demo/template"
+            },
+            {
+                "resourceId": 8300,
+                "resourceName": "在线充值",
+                "resourcePath": "path=demo/template"
             }
         ]
     }
+
 ]
